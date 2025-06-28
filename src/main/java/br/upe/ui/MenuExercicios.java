@@ -1,8 +1,7 @@
-package ui;
+package br.upe.ui;
 
 import br.upe.business.ExercicioService;
 import br.upe.data.beans.Exercicio;
-import br.upe.ui.VisualizadorExercicio;
 import br.upe.business.IExercicioService;
 
 import java.util.List;
@@ -70,7 +69,7 @@ public class MenuExercicios {
         String nome = sc.nextLine();
         System.out.print("Descrição: ");
         String descricao = sc.nextLine();
-        System.out.print("Caminho do GIF (ex: agachamento.gif): ");
+        System.out.print("Caminho do GIF (ex: gif/agachamento.gif): ");
         String caminhoGif = sc.nextLine();
 
         try {
@@ -94,7 +93,7 @@ public class MenuExercicios {
     private void editarExercicio() {
         System.out.println("\n===== EDITAR EXERCÍCIO =====");
         System.out.print("Digite o NOME do exercício que você deseja editar: ");
-        String nomeAtualExercicio = sc.nextLine();
+        String nomeAtualExercicio = sc.nextLine(); // Corrigido: ler como String
 
         Optional<Exercicio> exercicioOpt = exercicioService.buscarExercicioDoUsuarioPorNome(idUsuarioLogado, nomeAtualExercicio);
 
@@ -112,7 +111,7 @@ public class MenuExercicios {
             String novoCaminhoGif = sc.nextLine();
 
             try {
-                exercicioService.atualizarExercicio(idUsuarioLogado, nomeAtualExercicio,
+                exercicioService.atualizarExercicio(idUsuarioLogado, nomeAtualExercicio, // Passa idUsuarioLogado e nomeAtual
                         novoNome.isEmpty() ? null : novoNome,
                         novaDescricao.isEmpty() ? null : novaDescricao,
                         novoCaminhoGif.isEmpty() ? null : novoCaminhoGif);
@@ -145,7 +144,7 @@ public class MenuExercicios {
     private void verDetalhesExercicio() {
         System.out.println("\n===== VER DETALHES DO EXERCÍCIO =====");
         System.out.print("Digite o NOME do exercício para ver os detalhes: ");
-        String nomeExercicio = sc.nextLine();
+        String nomeExercicio = sc.nextLine(); // Corrigido: ler como String
 
         Optional<Exercicio> exercicioOpt = exercicioService.buscarExercicioDoUsuarioPorNome(idUsuarioLogado, nomeExercicio);
 
