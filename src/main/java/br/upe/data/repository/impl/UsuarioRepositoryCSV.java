@@ -1,5 +1,7 @@
 package br.upe.data.repository.impl;
 
+import br.upe.data.repository.UsuarioRepository;
+import br.upe.data.beans.Usuario;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
