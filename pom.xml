@@ -10,13 +10,16 @@
   <packaging>jar</packaging>
 
   <name>gym-system</name>
-  <url>http://maven.apache.org</url>
+  <url>http://www.sysfit.com.br</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
-    <junit.jupiter.version>5.10.0</junit.jupiter.version> <hibernate.version>6.5.2.Final</hibernate.version> <mysql.connector.version>8.0.33</mysql.connector.version> </properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <junit.jupiter.version>5.10.0</junit.jupiter.version>
+    <hibernate.version>6.5.2.Final</hibernate.version>
+    <mysql.connector.version>8.0.33</mysql.connector.version>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -35,8 +38,18 @@
     <dependency>
       <groupId>jakarta.persistence</groupId>
       <artifactId>jakarta.persistence-api</artifactId>
-      <version>3.1.0</version> </dependency>
-
+      <version>3.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${hibernate.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql.connector.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -55,10 +68,19 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.1.2</version>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
         <configuration>
-          <argLine>
-            --enable-preview
-          </argLine>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <mainClass>br.upe.Main</mainClass>
+            </manifest>
+          </archive>
         </configuration>
       </plugin>
     </plugins>
