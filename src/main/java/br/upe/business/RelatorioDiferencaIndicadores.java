@@ -3,7 +3,7 @@ package br.upe.business;
 import br.upe.data.beans.IndicadorBiomedico;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter; // Import this
+import java.time.format.DateTimeFormatter; 
 import java.util.Optional;
 import java.io.FileWriter;
 import java.io.IOException;
