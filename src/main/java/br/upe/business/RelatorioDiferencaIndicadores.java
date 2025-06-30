@@ -5,6 +5,8 @@ import br.upe.data.beans.IndicadorBiomedico;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter; // Import this
 import java.util.Optional;
+ import java.io.FileWriter;
+import java.io.IOException;
 
 public class RelatorioDiferencaIndicadores {
 
@@ -60,8 +62,6 @@ public class RelatorioDiferencaIndicadores {
             inicial.getImc(), finalObj.getImc(), diferencaImc
         );
     }
-    import java.io.FileWriter;
-import java.io.IOException;
 
 public void exportarParaCsv(String caminhoArquivo) throws IOException {
     try (FileWriter writer = new FileWriter(caminhoArquivo)) {
