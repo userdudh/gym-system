@@ -19,6 +19,7 @@ public class ExercicioService implements IExercicioService {
         this.exercicioRepository = new ExercicioRepositoryImpl();
     }
 
+    // Verifica condições e cadastra exercicios no repositorio
     @Override
     public Exercicio cadastrarExercicio(int idUsuario, String nome, String descricao, String caminhoGif) {
         if (nome == null || nome.trim().isEmpty()) {
@@ -36,11 +37,14 @@ public class ExercicioService implements IExercicioService {
         return exercicioRepository.salvar(novoExercicio);
     }
 
+    // Lista exercicios do usuario
     @Override
     public List<Exercicio> listarExerciciosDoUsuario(int idUsuario) {
         return exercicioRepository.buscarTodosDoUsuario(idUsuario);
     }
 
+
+    // Busca o exercicio pelo nome
     @Override
     public Optional<Exercicio> buscarExercicioDoUsuarioPorNome(int idUsuario, String nomeExercicio) {
         if (nomeExercicio == null || nomeExercicio.trim().isEmpty()) {
@@ -54,11 +58,13 @@ public class ExercicioService implements IExercicioService {
                 .findFirst();
     }
 
+    // Busca o exercicio pelo id
     @Override
     public Optional<Exercicio> buscarExercicioPorIdGlobal(int idExercicio) {
         return exercicioRepository.buscarPorId(idExercicio);
     }
 
+    // verifica condições e deleta o exercicio pelo nome
     @Override
     public boolean deletarExercicioPorNome(int idUsuario, String nomeExercicio) {
         if (nomeExercicio == null || nomeExercicio.trim().isEmpty()) {
@@ -77,6 +83,7 @@ public class ExercicioService implements IExercicioService {
         }
     }
 
+    // Alterar exercicios
     @Override
     public void atualizarExercicio(int idUsuario, String nomeAtualExercicio, String novoNome, String novaDescricao, String novoCaminhoGif) {
         if (nomeAtualExercicio == null || nomeAtualExercicio.trim().isEmpty()) {

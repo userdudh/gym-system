@@ -30,6 +30,7 @@ public class PlanoTreinoService implements IPlanoTreinoService {
         this.exercicioRepository = new ExercicioRepositoryImpl();
     }
 
+    // Verifica as condições e cria plano de treino
     @Override
     public PlanoTreino criarPlano(int idUsuario, String nome) {
         if (nome == null || nome.trim().isEmpty()) {
@@ -43,6 +44,7 @@ public class PlanoTreinoService implements IPlanoTreinoService {
         return planoTreinoRepository.salvar(novoPlano);
     }
 
+    // Verifica as condições e adiciona exercicios ao plano
     @Override
     public void adicionarExercicioAoPlano(int idUsuario, String nomePlano, int idExercicio, int cargaKg, int repeticoes) {
         Optional<PlanoTreino> planoOpt = buscarPlanoPorNomeEUsuario(idUsuario, nomePlano);
@@ -67,6 +69,7 @@ public class PlanoTreinoService implements IPlanoTreinoService {
         planoTreinoRepository.editar(plano);
     }
 
+    // Remove exercicios do plano pelo id
     @Override
     public void removerExercicioDoPlano(int idUsuario, String nomePlano, int idExercicio) {
         Optional<PlanoTreino> planoOpt = buscarPlanoPorNomeEUsuario(idUsuario, nomePlano);
@@ -82,11 +85,13 @@ public class PlanoTreinoService implements IPlanoTreinoService {
         planoTreinoRepository.editar(plano);
     }
 
+    // Lista o plano pelo usuario
     @Override
     public List<PlanoTreino> listarMeusPlanos(int idUsuario) {
         return planoTreinoRepository.buscarTodosDoUsuario(idUsuario);
     }
 
+    // Lista o plano do usuario pelo nome
     @Override
     public Optional<PlanoTreino> buscarPlanoPorNomeEUsuario(int idUsuario, String nomePlano) {
         if (nomePlano == null || nomePlano.trim().isEmpty()) {
@@ -95,6 +100,7 @@ public class PlanoTreinoService implements IPlanoTreinoService {
         return planoTreinoRepository.buscarPorNomeEUsuario(idUsuario, nomePlano.trim());
     }
 
+    // Altera o plano do usuario pelo nome
     @Override
     public void editarPlano(int idUsuario, String nomeAtualPlano, String novoNome) {
         Optional<PlanoTreino> planoOpt = buscarPlanoPorNomeEUsuario(idUsuario, nomeAtualPlano);
@@ -114,6 +120,7 @@ public class PlanoTreinoService implements IPlanoTreinoService {
         planoTreinoRepository.editar(plano);
     }
 
+    // Deleta o plano
     @Override
     public boolean deletarPlano(int idUsuario, String nomePlano) {
         Optional<PlanoTreino> planoOpt = buscarPlanoPorNomeEUsuario(idUsuario, nomePlano);
@@ -124,6 +131,7 @@ public class PlanoTreinoService implements IPlanoTreinoService {
         return true;
     }
 
+    // Lista o plano pelo id
     @Override
     public Optional<PlanoTreino> buscarPlanoPorId(int idPlanoEscolhido) {
         return Optional.empty();

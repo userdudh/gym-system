@@ -8,12 +8,16 @@ import java.util.Objects;
 
 public class VisualizadorExercicio {
 
+    // Metodo para visualização de exercicios
     public static void mostrarExercicio(String gifPath, String descricao) {
+
+        // Cria uma janela com o gif
         JFrame frame = new JFrame("Detalhes do Exercício");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setSize(400, 500);
         frame.setLocationRelativeTo(null);
 
+        // Carrega o gif
         ImageIcon gifIcon = null;
 
         try {
@@ -23,6 +27,7 @@ public class VisualizadorExercicio {
             gifIcon = new ImageIcon(new byte[0]);
         }
 
+        // Cria os componentes gráficos
         JLabel gifLabel = new JLabel(gifIcon);
         JTextArea descricaoArea = new JTextArea(descricao);
         descricaoArea.setLineWrap(true);
@@ -36,7 +41,7 @@ public class VisualizadorExercicio {
         frame.setVisible(true);
     }
 
-
+    // Metodo para exibir o exercicio
     public void exibirDetalhes(Exercicio exercicio) {
         mostrarExercicio(exercicio.getCaminhoGif(), exercicio.getDescricao());
     }

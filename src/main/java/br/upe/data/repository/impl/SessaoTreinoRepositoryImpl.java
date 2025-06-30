@@ -27,6 +27,7 @@ public class SessaoTreinoRepositoryImpl implements ISessaoTreinoRepository {
         carregarDoCsv();
     }
 
+    // Lista o usuario do arquivo CSV
     private void carregarDoCsv() {
         try {
             Files.createDirectories(Paths.get("src/main/resources/data"));
@@ -64,6 +65,7 @@ public class SessaoTreinoRepositoryImpl implements ISessaoTreinoRepository {
         }
     }
 
+    // Grava a sessao de treino no arquivo CSV
     private void escreverParaCsv() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO_CSV))) {
             for (SessaoTreino sessao : sessoes) {
@@ -75,6 +77,7 @@ public class SessaoTreinoRepositoryImpl implements ISessaoTreinoRepository {
         }
     }
 
+    // Ler uma linha do arquivo CSV
     private SessaoTreino parseLinhaCsv(String linha) {
         String[] partes = linha.split(";", 5);
         if (partes.length == 5) {
@@ -110,6 +113,7 @@ public class SessaoTreinoRepositoryImpl implements ISessaoTreinoRepository {
         return null;
     }
 
+    // Formata para uma linha do arquivo CSV
     private String formatarLinhaCsv(SessaoTreino sessao) {
         String itensString = sessao.getItensExecutados().stream()
                 .map(item -> item.getIdExercicio() + "," + item.getRepeticoesRealizadas() + "," + item.getCargaRealizada())
@@ -122,6 +126,7 @@ public class SessaoTreinoRepositoryImpl implements ISessaoTreinoRepository {
                 itensString;
     }
 
+    // Salva a sessao de treino no arquivo CSV
     @Override
     public SessaoTreino salvar(SessaoTreino sessao) {
         if (sessao.getIdSessao() == 0) {
@@ -134,6 +139,7 @@ public class SessaoTreinoRepositoryImpl implements ISessaoTreinoRepository {
         return sessao;
     }
 
+    // Lista a sessao de treino pelo id
     @Override
     public Optional<SessaoTreino> buscarPorId(int idSessao) {
         return sessoes.stream()
@@ -141,6 +147,7 @@ public class SessaoTreinoRepositoryImpl implements ISessaoTreinoRepository {
                 .findFirst();
     }
 
+    // Lista todas as sessoes de treino de um usuario
     @Override
     public List<SessaoTreino> buscarTodosDoUsuario(int idUsuario) {
         return sessoes.stream()
@@ -148,6 +155,7 @@ public class SessaoTreinoRepositoryImpl implements ISessaoTreinoRepository {
                 .collect(Collectors.toList());
     }
 
+    // Lista a sessao de treino de um usuario pelo periodo
     @Override
     public List<SessaoTreino> buscarPorPeriodo(int idUsuario, LocalDate dataInicio, LocalDate dataFim) {
         return sessoes.stream()
@@ -157,6 +165,7 @@ public class SessaoTreinoRepositoryImpl implements ISessaoTreinoRepository {
                 .collect(Collectors.toList());
     }
 
+    // Verifica as condições e altera a sessao de treino
     @Override
     public void editar(SessaoTreino sessao) {
         Optional<SessaoTreino> existenteOpt = buscarPorId(sessao.getIdSessao());
@@ -169,6 +178,7 @@ public class SessaoTreinoRepositoryImpl implements ISessaoTreinoRepository {
         }
     }
 
+    // Verifica as condições e deleta a sessao de treino
     @Override
     public void deletar(int idSessao) {
         boolean removido = sessoes.removeIf(s -> s.getIdSessao() == idSessao);

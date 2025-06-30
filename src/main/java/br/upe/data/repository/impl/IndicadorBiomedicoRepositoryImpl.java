@@ -26,6 +26,7 @@ public class IndicadorBiomedicoRepositoryImpl implements IIndicadorBiomedicoRepo
         carregarDoCsv();
     }
 
+    // Busca o usuario pelo arquivo CSV
     private void carregarDoCsv() {
         try {
             Files.createDirectories(Paths.get("src/main/resources/data"));
@@ -63,6 +64,7 @@ public class IndicadorBiomedicoRepositoryImpl implements IIndicadorBiomedicoRepo
         }
     }
 
+    // Grava os indicadores no arquivo CSV
     private void escreverParaCsv() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO_CSV))) {
             for (IndicadorBiomedico indicador : indicadores) {
@@ -74,6 +76,7 @@ public class IndicadorBiomedicoRepositoryImpl implements IIndicadorBiomedicoRepo
         }
     }
 
+    // Lê uma linha do arquivo CSV
     private IndicadorBiomedico parseLinhaCsv(String linha) {
         String[] partes = linha.split(";");
         if (partes.length == 8) {
@@ -96,6 +99,7 @@ public class IndicadorBiomedicoRepositoryImpl implements IIndicadorBiomedicoRepo
         return null;
     }
 
+    // Formata uma linha no arquivo CSV
     private String formatarLinhaCsv(IndicadorBiomedico indicador) {
         return indicador.getId() + ";" +
                 indicador.getIdUsuario() + ";" +
@@ -107,6 +111,7 @@ public class IndicadorBiomedicoRepositoryImpl implements IIndicadorBiomedicoRepo
                 indicador.getImc();
     }
 
+    // Salva os indicadores no arquivo CSV
     @Override
     public IndicadorBiomedico salvar(IndicadorBiomedico indicador) {
         if (indicador.getId() == 0) {
@@ -119,6 +124,7 @@ public class IndicadorBiomedicoRepositoryImpl implements IIndicadorBiomedicoRepo
         return indicador;
     }
 
+    // Buscar indicadores por id
     @Override
     public Optional<IndicadorBiomedico> buscarPorId(int id) {
         return indicadores.stream()
@@ -126,6 +132,7 @@ public class IndicadorBiomedicoRepositoryImpl implements IIndicadorBiomedicoRepo
                 .findFirst();
     }
 
+    // Buscar todos os indicadores de um usuario
     @Override
     public List<IndicadorBiomedico> buscarTodosDoUsuario(int idUsuario) {
         return indicadores.stream()
@@ -133,6 +140,7 @@ public class IndicadorBiomedicoRepositoryImpl implements IIndicadorBiomedicoRepo
                 .collect(Collectors.toList());
     }
 
+    // Listar indicadores de um usuario pelo periodo
     @Override
     public List<IndicadorBiomedico> buscarPorPeriodo(int idUsuario, LocalDate dataInicio, LocalDate dataFim) {
         return indicadores.stream()
@@ -142,6 +150,7 @@ public class IndicadorBiomedicoRepositoryImpl implements IIndicadorBiomedicoRepo
                 .collect(Collectors.toList());
     }
 
+    // Verifica condições e altera indicadores
     @Override
     public void editar(IndicadorBiomedico indicador) {
         Optional<IndicadorBiomedico> existenteOpt = buscarPorId(indicador.getId());
@@ -154,6 +163,7 @@ public class IndicadorBiomedicoRepositoryImpl implements IIndicadorBiomedicoRepo
         }
     }
 
+    // Verifica condições e deleta indicadores pelo id
     @Override
     public void deletar(int id) {
         boolean removido = indicadores.removeIf(i -> i.getId() == id);

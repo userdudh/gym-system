@@ -36,6 +36,7 @@ public class SessaoTreinoService {
         this.exercicioRepo = new ExercicioRepositoryImpl();
     }
 
+    // Inicia a sessao de um usuario
     public SessaoTreino iniciarSessao(int idUsuario, int idPlano) {
         Optional<PlanoTreino> planoOpt = planoRepo.buscarPorId(idPlano);
         if (!planoOpt.isPresent() || planoOpt.get().getIdUsuario() != idUsuario) {
@@ -46,11 +47,13 @@ public class SessaoTreinoService {
         return sessao;
     }
 
+    // Registra a execucao de um exercicio
     public void registrarExecucao(SessaoTreino sessao, int idExercicio, int repeticoesRealizadas, double cargaRealizada) {
         ItemSessaoTreino itemExecutado = new ItemSessaoTreino(idExercicio, repeticoesRealizadas, cargaRealizada);
         sessao.adicionarItemExecutado(itemExecutado);
     }
 
+    // Verifica as condições e registra uma sessao de treino
     public void salvarSessao(SessaoTreino sessao) {
         if (sessao.getItensExecutados().isEmpty()) {
             System.out.println("Sessão vazia. Não será salva.");
@@ -60,6 +63,7 @@ public class SessaoTreinoService {
         System.out.println("Sessão de treino ID " + sessao.getIdSessao() + " salva com sucesso!");
     }
 
+    // Verifica condições e gera sugestões de acordo com sessao de treino
     public List<SugestaoAtualizacaoPlano> verificarAlteracoesEGerarSugestoes(SessaoTreino sessao) {
         Optional<PlanoTreino> planoOpt = planoRepo.buscarPorId(sessao.getIdPlanoTreino());
         if (!planoOpt.isPresent()) {
@@ -99,6 +103,7 @@ public class SessaoTreinoService {
         return sugestoes;
     }
 
+    // Verifica condições e atualiza o plano de acordo com a sessao
     public void aplicarAtualizacoesNoPlano(int idPlano, int idExercicio, int novasRepeticoes, double novaCarga) {
         Optional<PlanoTreino> planoOpt = planoRepo.buscarPorId(idPlano);
         if (!planoOpt.isPresent()) {

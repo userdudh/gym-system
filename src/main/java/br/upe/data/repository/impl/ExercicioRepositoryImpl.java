@@ -24,6 +24,7 @@ public class ExercicioRepositoryImpl implements IExercicioRepository {
         carregarDoCsv();
     }
 
+    // Listar usuario do arquivo csv
     private void carregarDoCsv() {
         try {
             Files.createDirectories(Paths.get("src/main/resources/data"));
@@ -61,7 +62,7 @@ public class ExercicioRepositoryImpl implements IExercicioRepository {
         }
     }
 
-
+    // Gravar exercicio no arquivo CSV
     private void escreverParaCsv() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO_CSV))) {
             for (Exercicio exercicio : exercicios) {
@@ -73,6 +74,7 @@ public class ExercicioRepositoryImpl implements IExercicioRepository {
         }
     }
 
+    //
     private Exercicio parseLinhaCsv(String linha) {
         String[] partes = linha.split(";");
         if (partes.length == 5) {
@@ -100,6 +102,7 @@ public class ExercicioRepositoryImpl implements IExercicioRepository {
                 exercicio.getCaminhoGif();
     }
 
+    // Salvar exercicio no arquivo CSV
     @Override
     public Exercicio salvar(Exercicio exercicio) {
         if (exercicio.getIdExercicio() == 0) {
@@ -112,6 +115,7 @@ public class ExercicioRepositoryImpl implements IExercicioRepository {
         return exercicio;
     }
 
+    // Buscar todos os exercicios pelo id do usuario
     @Override
     public List<Exercicio> buscarTodosDoUsuario(int idUsuario) {
         return exercicios.stream()
@@ -119,6 +123,7 @@ public class ExercicioRepositoryImpl implements IExercicioRepository {
                 .collect(java.util.stream.Collectors.toList());
     }
 
+    // Editar o exercicio no arquivo CSV
     @Override
     public void editar(Exercicio exercicio) {
         Optional<Exercicio> existenteOpt = buscarPorId(exercicio.getIdExercicio());
@@ -131,6 +136,7 @@ public class ExercicioRepositoryImpl implements IExercicioRepository {
         }
     }
 
+    // Deletar exercicio do arquivo CSV pelo id
     @Override
     public void deletar(int idExercicio) {
         boolean removido = exercicios.removeIf(e -> e.getIdExercicio() == idExercicio);
@@ -141,6 +147,7 @@ public class ExercicioRepositoryImpl implements IExercicioRepository {
         }
     }
 
+    // Buscar exercicio no arquivo CSV pelo nome
     @Override
     public Optional<Exercicio> buscarPorNome(String nome) {
         return exercicios.stream()
@@ -148,6 +155,7 @@ public class ExercicioRepositoryImpl implements IExercicioRepository {
                 .findFirst();
     }
 
+    // Buscar exercicio no arquivo CSV pelo id
     @Override
     public Optional<Exercicio> buscarPorId(int idExercicio) {
         return exercicios.stream()

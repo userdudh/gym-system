@@ -21,6 +21,7 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
         carregarDoCsv();
     }
 
+    // Lista o usuario do arquivo CSV
     private void carregarDoCsv() {
         try {
             Files.createDirectories(Paths.get("src/main/resources/data"));
@@ -57,6 +58,7 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
         }
     }
 
+    // Grava o usuario no arquivo CSV
     private void escreverParaCsv() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(CAMINHO_ARQUIVO))) {
             writer.write("id;nome;email;senha;tipo\n");
@@ -69,6 +71,7 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
         }
     }
 
+    // Ler uma linha do arquivo CSV
     private Usuario parseLinhaCsv(String linha) {
         String[] partes = linha.split(";");
         if (partes.length == 5) {
@@ -88,6 +91,7 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
         return null;
     }
 
+    // Formata para uma linha do arquivo CSV
     private String formatarLinhaCsv(Usuario usuario) {
         return usuario.getId() + ";" +
                 usuario.getNome() + ";" +
@@ -96,6 +100,7 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
                 usuario.getTipo().name();
     }
 
+    // Salva o usuario no arquivo CSV
     @Override
     public Usuario salvar(Usuario usuario) {
         Optional<Usuario> existenteOpt = buscarPorId(usuario.getId());
@@ -109,6 +114,7 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
         return usuario;
     }
 
+    // Lista o usuario por id
     @Override
     public Optional<Usuario> buscarPorId(int id) {
         return usuarios.stream()
@@ -116,6 +122,7 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
                 .findFirst();
     }
 
+    // Lista o usuario por email
     @Override
     public Optional<Usuario> buscarPorEmail(String email) {
         return usuarios.stream()
@@ -123,11 +130,13 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
                 .findFirst();
     }
 
+    // Lista todos os usuarios
     @Override
     public List<Usuario> listarTodos() {
         return new ArrayList<>(usuarios);
     }
 
+    // Verifica condições e altera o usuario
     @Override
     public void editar(Usuario usuario) {
         Optional<Usuario> existenteOpt = buscarPorId(usuario.getId());
@@ -140,6 +149,7 @@ public class UsuarioRepositoryImpl implements IUsuarioRepository {
         }
     }
 
+    //Verifica condições e deleta o usuario
     @Override
     public void deletar(int id) {
         boolean removido = usuarios.removeIf(u -> u.getId() == id);
