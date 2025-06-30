@@ -5,7 +5,7 @@ import br.upe.data.beans.IndicadorBiomedico;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter; // Import this
 import java.util.Optional;
- import java.io.FileWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class RelatorioDiferencaIndicadores {
