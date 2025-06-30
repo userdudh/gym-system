@@ -99,7 +99,7 @@ public class IndicadorBiomedico {
 
     @Override
     public String toString() {
-        return String.format("ID: %d | Data: %s | Peso: %.1fkg | Altura: %.0fcm | Gordura: %.1f%% | Massa Magra: %.1f%% | IMC: %.1f",
+        return String.format("ID: %d | Data: %-12s | Peso: %.1fkg | Altura: %.0fcm | Gordura: %.1f%% | Massa Magra: %.1f%% | IMC: %-8.2f",
                 id, data, pesoKg, alturaCm, percentualGordura, percentualMassaMagra, imc);
     }
 }

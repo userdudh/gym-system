@@ -80,8 +80,7 @@ public class MenuPrincipal {
             System.out.println("2. Meus Indicadores");
             System.out.println("3. Gerenciar Planos de Treino");
             System.out.println("4. Gerenciar Exercícios");
-            System.out.println("5. Importar Dados Biomédicos");
-            System.out.println("6. Exportar Relatórios (Funcionalidade futura)");
+            System.out.println("5. Exportar Relatórios (Funcionalidade futura)");
             System.out.println("0. Sair da Conta");
             System.out.print("\nEscolha uma opção: ");
 
@@ -109,11 +108,6 @@ public class MenuPrincipal {
                     menuExercicios.exibirMenu();
                     break;
                 case 5:
-                    MenuIndicadores menuIndicadoresImport = new MenuIndicadores(sc, usuarioLogado.getId());
-                    menuIndicadoresImport.exibirMenu();
-                    System.out.println("Para importar dados biomédicos, escolha a opção 2 no menu de Indicadores.");
-                    break;
-                case 6:
                     System.out.println("Funcionalidade de exportar relatórios em desenvolvimento.");
                     break;
                 case 0:

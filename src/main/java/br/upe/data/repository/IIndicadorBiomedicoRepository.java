@@ -8,9 +8,10 @@ import java.util.Optional;
 public interface IIndicadorBiomedicoRepository {
     IndicadorBiomedico salvar(IndicadorBiomedico indicador);
     Optional<IndicadorBiomedico> buscarPorId(int id);
-    List<IndicadorBiomedico> buscarTodosDoUsuario(int idUsuario);
+    List<IndicadorBiomedico> listarPorUsuario(int idUsuario);
     List<IndicadorBiomedico> buscarPorPeriodo(int idUsuario, LocalDate dataInicio, LocalDate dataFim);
+    List<IndicadorBiomedico> listarTodos();
     void editar(IndicadorBiomedico indicador);
     void deletar(int id);
-    int proximoId();
+    int gerarProximoId();
 }

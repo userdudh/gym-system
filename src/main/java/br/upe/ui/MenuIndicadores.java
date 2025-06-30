@@ -3,6 +3,7 @@ package br.upe.ui;
 import br.upe.business.IIndicadorBiomedicoService;
 import br.upe.business.IndicadorBiomedicoService;
 import br.upe.data.beans.IndicadorBiomedico;
+import br.upe.business.RelatorioDiferencaIndicadores;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -15,7 +16,7 @@ public class MenuIndicadores {
     private final Scanner sc;
     private final int idUsuarioLogado;
     private final IIndicadorBiomedicoService indicadorService;
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE;
 
     public MenuIndicadores(Scanner scanner, int idUsuarioLogado) {
         this.sc = scanner;
@@ -26,9 +27,9 @@ public class MenuIndicadores {
     public void exibirMenu() {
         int opcao;
         do {
-            System.out.println("\n===== MEUS INDICADORES BIOMÉDICOS =====");
+            System.out.println("\n===== MEUS INDICADORES BIOMÉDICOS ====");
             System.out.println("1. Cadastrar Novo Indicador");
-            System.out.println("2. Importar Indicadores (CSV)");
+            System.out.println("2. Ver Meus Indicadores");
             System.out.println("3. Ver Relatório por Data");
             System.out.println("4. Ver Relatório de Diferença");
             System.out.println("0. Voltar");
@@ -45,7 +46,7 @@ public class MenuIndicadores {
                     cadastrarNovoIndicador();
                     break;
                 case 2:
-                    importarIndicadores();
+                    listarMeusIndicadores();
                     break;
                 case 3:
                     verRelatorioPorData();
@@ -63,8 +64,8 @@ public class MenuIndicadores {
     }
 
     private void cadastrarNovoIndicador() {
-        System.out.println("\n===== CADASTRAR NOVO INDICADOR =====");
-        System.out.print("Data (DD/MM/AAAA, deixe em branco para hoje): ");
+        System.out.println("\n===== CADASTRAR NOVO INDICADOR ====");
+        System.out.print("Data (AAAA-MM-DD, deixe em branco para hoje): ");
         String dataStr = sc.nextLine();
         LocalDate data = LocalDate.now();
         if (!dataStr.isEmpty()) {
@@ -119,25 +120,21 @@ public class MenuIndicadores {
         }
     }
 
-    private void importarIndicadores() {
-        System.out.println("\n===== IMPORTAR INDICADORES (CSV) =====");
-        System.out.println("Formato CSV esperado: data(DD/MM/AAAA);peso;altura;perc_gordura;perc_massa_magra");
-        System.out.print("Caminho completo do arquivo CSV para importação: ");
-        String caminhoArquivo = sc.nextLine();
-
-        try {
-            indicadorService.importarIndicadoresCsv(idUsuarioLogado, caminhoArquivo);
-            System.out.println("Solicitação de importação enviada. Verifique mensagens no console.");
-        } catch (IllegalArgumentException e) {
-            System.err.println("Erro na importação: " + e.getMessage());
+    private void listarMeusIndicadores() {
+        System.out.println("\n===== MEUS INDICADORES REGISTRADOS ====");
+        List<IndicadorBiomedico> meusIndicadores = indicadorService.listarTodosDoUsuario(idUsuarioLogado);
+        if (meusIndicadores.isEmpty()) {
+            System.out.println("Você ainda não possui indicadores registrados.");
+        } else {
+            meusIndicadores.forEach(System.out::println);
         }
     }
 
     private void verRelatorioPorData() {
-        System.out.println("\n===== RELATÓRIO DE INDICADORES POR DATA =====");
-        LocalDate dataInicio = pedirData("Data de Início (DD/MM/AAAA): ");
+        System.out.println("\n===== RELATÓRIO DE INDICADORES POR DATA ====");
+        LocalDate dataInicio = pedirData("Data de Início (AAAA-MM-DD): ");
         if (dataInicio == null) return;
-        LocalDate dataFim = pedirData("Data de Fim (DD/MM/AAAA): ");
+        LocalDate dataFim = pedirData("Data de Fim (AAAA-MM-DD): ");
         if (dataFim == null) return;
 
         try {
@@ -154,30 +151,15 @@ public class MenuIndicadores {
     }
 
     private void verRelatorioDiferenca() {
-        System.out.println("\n===== RELATÓRIO DE DIFERENÇA DE INDICADORES =====");
-        LocalDate dataInicio = pedirData("Data de Início do Período (DD/MM/AAAA): ");
+        System.out.println("\n===== RELATÓRIO DE DIFERENÇA DE INDICADORES ====");
+        LocalDate dataInicio = pedirData("Data de Início do Período (AAAA-MM-DD): ");
         if (dataInicio == null) return;
-        LocalDate dataFim = pedirData("Data de Fim do Período (DD/MM/AAAA): ");
+        LocalDate dataFim = pedirData("Data de Fim do Período (AAAA-MM-DD): ");
         if (dataFim == null) return;
 
         try {
-            IIndicadorBiomedicoService.RelatorioDiferencaIndicadores relatorio = indicadorService.gerarRelatorioDiferenca(idUsuarioLogado, dataInicio, dataFim);
-
-            System.out.println("\n--- Diferença de Indicadores de " + dataInicio.format(DATE_FORMATTER) + " a " + dataFim.format(DATE_FORMATTER) + " ---");
-            if (!relatorio.indicadorInicial.isPresent()) {
-                System.out.println("Nenhum indicador encontrado no período selecionado para calcular a diferença.");
-                return;
-            }
-
-            System.out.println("Início do Período: " + relatorio.indicadorInicial.get());
-            System.out.println("Fim do Período:    " + relatorio.indicadorFinal.get());
-            System.out.println("\n--- Diferenças ---");
-            System.out.printf("Peso: %.1fkg\n", relatorio.diferencaPeso);
-            System.out.printf("Altura: %.1fcm\n", relatorio.diferencaAltura);
-            System.out.printf("Gordura: %.1f%%\n", relatorio.diferencaPercentualGordura);
-            System.out.printf("Massa Magra: %.1f%%\n", relatorio.diferencaPercentualMassaMagra);
-            System.out.printf("IMC: %.1f\n", relatorio.diferencaImc);
-
+            RelatorioDiferencaIndicadores relatorio = indicadorService.gerarRelatorioDiferenca(idUsuarioLogado, dataInicio, dataFim);
+            System.out.println(relatorio);
         } catch (IllegalArgumentException e) {
             System.err.println("Erro ao gerar relatório: " + e.getMessage());
         }
@@ -189,7 +171,7 @@ public class MenuIndicadores {
         try {
             return LocalDate.parse(dataStr, DATE_FORMATTER);
         } catch (DateTimeParseException e) {
-            System.err.println("Formato de data inválido. Use DD/MM/AAAA.");
+            System.err.println("Formato de data inválido. Use AAAA-MM-DD.");
             return null;
         }
     }

@@ -122,6 +122,6 @@ public class IndicadorBiomedicoService implements IIndicadorBiomedicoService {
 
     @Override
     public List<IndicadorBiomedico> listarTodosDoUsuario(int idUsuario) {
-        return indicadorRepository.buscarTodosDoUsuario(idUsuario);
+        return indicadorRepository.listarPorUsuario(idUsuario);
     }
 }
