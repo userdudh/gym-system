@@ -182,12 +182,6 @@ public class IndicadorBiomedicoRepositoryImpl implements IIndicadorBiomedicoRepo
         }
     }
 
-    @Override
-    public void editar(IndicadorBiomedico indicador) {
-        indicadores.removeIf(i -> i.getId() == indicador.getId());
-        indicadores.add(indicador);
-        escreverParaCsv();
-    }
 
     @Override
     public int gerarProximoId() {
