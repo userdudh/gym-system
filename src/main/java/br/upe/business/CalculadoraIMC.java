@@ -3,6 +3,7 @@ package br.upe.business.util;
 public class CalculadoraIMC {
 
     // Metodo para verificar as condições
+    // Adicionado um comentário para forçar a recompilação
     public static double calcular(double pesoKg, double alturaCm) {
         if (alturaCm <= 0) {
             throw new IllegalArgumentException("Altura deve ser maior que zero para calcular o IMC.");
