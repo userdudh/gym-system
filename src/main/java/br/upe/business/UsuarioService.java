@@ -19,6 +19,7 @@ public class UsuarioService implements IUsuarioService {
         this.usuarioRepository = new UsuarioRepositoryImpl();
     }
 
+    // Verifica condições e realiza o login do usuario
     @Override
     public Usuario autenticarUsuario(String email, String senha) {
         if (email == null || email.trim().isEmpty() || senha == null || senha.trim().isEmpty()) {
@@ -34,6 +35,7 @@ public class UsuarioService implements IUsuarioService {
         return null;
     }
 
+    // Verifica condições e realiza o cadastro do usuario
     @Override
     public Usuario cadastrarUsuario(String nome, String email, String senha, TipoUsuario tipo) {
         if (nome == null || nome.trim().isEmpty() || email == null || email.trim().isEmpty() || senha == null || senha.trim().isEmpty()) {
@@ -51,21 +53,25 @@ public class UsuarioService implements IUsuarioService {
         return usuarioRepository.salvar(novoUsuario);
     }
 
+    // Listar usuario por id
     @Override
     public Optional<Usuario> buscarUsuarioPorId(int id) {
         return usuarioRepository.buscarPorId(id);
     }
 
+    // Listar usuario por email
     @Override
     public Optional<Usuario> buscarUsuarioPorEmail(String email) {
         return usuarioRepository.buscarPorEmail(email);
     }
 
+    // Listar todos os usuarios
     @Override
     public List<Usuario> listarTodosUsuarios() {
         return usuarioRepository.listarTodos();
     }
 
+    // Verifica condições e altera o usuario pelo id
     @Override
     public void atualizarUsuario(int id, String novoNome, String novoEmail, String novaSenha, TipoUsuario novoTipo) {
         Optional<Usuario> usuarioOpt = usuarioRepository.buscarPorId(id);
@@ -95,6 +101,7 @@ public class UsuarioService implements IUsuarioService {
         usuarioRepository.editar(usuario);
     }
 
+    // Remove o usuario pelo id
     @Override
     public void removerUsuario(int id) {
         Optional<Usuario> usuarioOpt = usuarioRepository.buscarPorId(id);
@@ -104,6 +111,7 @@ public class UsuarioService implements IUsuarioService {
         usuarioRepository.deletar(id);
     }
 
+    // Verifica condições e altera o tipo do usuario
     @Override
     public void promoverUsuarioAAdmin(int idUsuario) {
         Optional<Usuario> usuarioOpt = usuarioRepository.buscarPorId(idUsuario);
@@ -120,6 +128,7 @@ public class UsuarioService implements IUsuarioService {
         System.out.println("Usuário " + usuario.getNome() + " promovido a ADMIN.");
     }
 
+    // Verifica condições e altera o tipo de usuario
     @Override
     public void rebaixarUsuarioAComum(int idUsuario) {
         Optional<Usuario> usuarioOpt = usuarioRepository.buscarPorId(idUsuario);

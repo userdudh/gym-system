@@ -14,7 +14,7 @@ public class MenuExercicios {
     private Scanner sc;
     private int idUsuarioLogado;
 
-    public MenuExercicios(int idUsuarioLogado) {
+    public MenuExercicios(Scanner sc, int idUsuarioLogado) {
         this.sc = sc;
         this.idUsuarioLogado = idUsuarioLogado;
         this.exercicioService = new ExercicioService();

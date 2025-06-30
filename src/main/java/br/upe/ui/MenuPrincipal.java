@@ -104,7 +104,7 @@ public class MenuPrincipal {
                     menuPlanoTreino.exibirMenu();
                     break;
                 case 4:
-                    MenuExercicios menuExercicios = new MenuExercicios(usuarioLogado.getId());
+                    MenuExercicios menuExercicios = new MenuExercicios(sc, usuarioLogado.getId());
                     menuExercicios.exibirMenu();
                     break;
                 case 5:

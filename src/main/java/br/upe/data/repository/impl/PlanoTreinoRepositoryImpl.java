@@ -25,6 +25,7 @@ public class PlanoTreinoRepositoryImpl implements IPlanoTreinoRepository {
         carregarDoCsv();
     }
 
+    // Listar usuario do arquivo CSV
     private void carregarDoCsv() {
         try {
             Files.createDirectories(Paths.get("src/main/resources/data"));
@@ -63,6 +64,7 @@ public class PlanoTreinoRepositoryImpl implements IPlanoTreinoRepository {
         }
     }
 
+    // Gravar plano de treino no arquivo CSV
     private void escreverParaCsv() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARQUIVO_CSV))) {
             for (PlanoTreino plano : planos) {
@@ -74,6 +76,7 @@ public class PlanoTreinoRepositoryImpl implements IPlanoTreinoRepository {
         }
     }
 
+    // Ler uma linha do arquivo CSV
     private PlanoTreino parseLinhaCsv(String linha) {
         String[] partes = linha.split(";", 4);
         if (partes.length == 4) {
@@ -108,6 +111,7 @@ public class PlanoTreinoRepositoryImpl implements IPlanoTreinoRepository {
         return null;
     }
 
+    // Formata para uma linha no arquivo CSV
     private String formatarLinhaCsv(PlanoTreino plano) {
         String itensString = plano.getItensTreino().stream()
                 .map(item -> item.getIdExercicio() + "," + item.getCargaKg() + "," + item.getRepeticoes())
@@ -119,6 +123,7 @@ public class PlanoTreinoRepositoryImpl implements IPlanoTreinoRepository {
                 itensString;
     }
 
+    // Salvar plano de treino no arquivo CSV
     @Override
     public PlanoTreino salvar(PlanoTreino plano) {
         if (plano.getIdPlano() == 0) {
@@ -131,6 +136,7 @@ public class PlanoTreinoRepositoryImpl implements IPlanoTreinoRepository {
         return plano;
     }
 
+    // Listar todos os planos de treino do usuario
     @Override
     public List<PlanoTreino> buscarTodosDoUsuario(int idUsuario) {
         return planos.stream()
@@ -138,6 +144,7 @@ public class PlanoTreinoRepositoryImpl implements IPlanoTreinoRepository {
                 .collect(Collectors.toList());
     }
 
+    // Verifica condições e altera o plano de treino
     @Override
     public void editar(PlanoTreino plano) {
         Optional<PlanoTreino> existenteOpt = buscarPorId(plano.getIdPlano());
@@ -150,11 +157,13 @@ public class PlanoTreinoRepositoryImpl implements IPlanoTreinoRepository {
         }
     }
 
+    // Atualiza o plano de treino de acordo com as alterações
     @Override
     public void atualizar(PlanoTreino plano) {
         editar(plano);
     }
 
+    // Verifica as condições e deleta o plano de treino
     @Override
     public void deletar(int idPlano) {
         boolean removido = planos.removeIf(p -> p.getIdPlano() == idPlano);
@@ -165,6 +174,7 @@ public class PlanoTreinoRepositoryImpl implements IPlanoTreinoRepository {
         }
     }
 
+    // Lista o plano de treino pelo nome e id do usuario
     @Override
     public Optional<PlanoTreino> buscarPorNomeEUsuario(int idUsuario, String nomePlano) {
         return planos.stream()
@@ -172,6 +182,7 @@ public class PlanoTreinoRepositoryImpl implements IPlanoTreinoRepository {
                 .findFirst();
     }
 
+    // Lista o plano de treino pelo id
     @Override
     public Optional<PlanoTreino> buscarPorId(int idPlano) {
         return planos.stream()

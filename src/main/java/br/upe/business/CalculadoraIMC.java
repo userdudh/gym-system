@@ -2,14 +2,17 @@ package br.upe.business.util;
 
 public class CalculadoraIMC {
 
+    // Metodo para verificar as condições
     public static double calcular(double pesoKg, double alturaCm) {
         if (alturaCm <= 0) {
             throw new IllegalArgumentException("Altura deve ser maior que zero para calcular o IMC.");
         }
+        // Calcula o IMC
         double alturaMetros = alturaCm / 100.0;
         return pesoKg / (alturaMetros * alturaMetros);
     }
 
+    // Classificação de cada IMC
     public static String classificarImc(double imc) {
         if (imc < 18.5) {
             return "Abaixo do peso";

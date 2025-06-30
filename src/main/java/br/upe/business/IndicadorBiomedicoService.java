@@ -28,6 +28,7 @@ public class IndicadorBiomedicoService implements IIndicadorBiomedicoService {
         this.indicadorRepository = new IndicadorBiomedicoRepositoryImpl();
     }
 
+    // Verifica condições e cadastra os indicadores
     @Override
     public IndicadorBiomedico cadastrarIndicador(int idUsuario, LocalDate data, double pesoKg, double alturaCm, double percentualGordura, double percentualMassaMagra) {
         if (pesoKg <= 0 || alturaCm <= 0) {
@@ -46,6 +47,7 @@ public class IndicadorBiomedicoService implements IIndicadorBiomedicoService {
         return indicadorRepository.salvar(novoIndicador);
     }
 
+    // Importa os indicadores do arquivo CSV
     @Override
     public void importarIndicadoresCsv(int idUsuario, String caminhoArquivoCsv) {
         try (BufferedReader br = new BufferedReader(new FileReader(caminhoArquivoCsv))) {
@@ -82,6 +84,7 @@ public class IndicadorBiomedicoService implements IIndicadorBiomedicoService {
         }
     }
 
+    // Verifica as condições e gera o relatorio pela data
     @Override
     public List<IndicadorBiomedico> gerarRelatorioPorData(int idUsuario, LocalDate dataInicio, LocalDate dataFim) {
         if (dataInicio == null || dataFim == null) {
@@ -95,6 +98,7 @@ public class IndicadorBiomedicoService implements IIndicadorBiomedicoService {
         return resultados;
     }
 
+    // Verificas as condicoes e gera um relatorio da diferenca entre duas datas
     @Override
     public RelatorioDiferencaIndicadores gerarRelatorioDiferenca(int idUsuario, LocalDate dataInicio, LocalDate dataFim) {
         if (dataInicio == null || dataFim == null) {
@@ -120,6 +124,7 @@ public class IndicadorBiomedicoService implements IIndicadorBiomedicoService {
         return relatorio;
     }
 
+    // Lista todos os indicadores do usuario
     @Override
     public List<IndicadorBiomedico> listarTodosDoUsuario(int idUsuario) {
         return indicadorRepository.listarPorUsuario(idUsuario);
