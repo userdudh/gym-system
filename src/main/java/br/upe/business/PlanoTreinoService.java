@@ -16,18 +16,18 @@ public class PlanoTreinoService implements IPlanoTreinoService {
 
     private IPlanoTreinoRepository planoTreinoRepository;
     private IExercicioService exercicioService;
-    private IExercicioRepository exercicioRepository; // Já declarado e inicializado
+    private IExercicioRepository exercicioRepository;
 
     public PlanoTreinoService(IPlanoTreinoRepository planoTreinoRepository, IExercicioService exercicioService) {
         this.planoTreinoRepository = planoTreinoRepository;
         this.exercicioService = exercicioService;
-        this.exercicioRepository = new ExercicioRepositoryImpl(); // Inicializa o repositório de exercícios aqui
+        this.exercicioRepository = new ExercicioRepositoryImpl();
     }
 
     public PlanoTreinoService() {
         this.planoTreinoRepository = new PlanoTreinoRepositoryImpl();
         this.exercicioService = new ExercicioService();
-        this.exercicioRepository = new ExercicioRepositoryImpl(); // E aqui também
+        this.exercicioRepository = new ExercicioRepositoryImpl();
     }
 
     @Override
@@ -51,8 +51,7 @@ public class PlanoTreinoService implements IPlanoTreinoService {
         }
         PlanoTreino plano = planoOpt.get();
 
-        // VALIDAÇÃO: Busca o exercício pelo ID e verifica se ele pertence ao usuário
-        Optional<Exercicio> exercicioOpt = exercicioRepository.buscarPorId(idExercicio); // Busca no repositório por ID
+        Optional<Exercicio> exercicioOpt = exercicioRepository.buscarPorId(idExercicio);
         if (!exercicioOpt.isPresent() || exercicioOpt.get().getIdUsuario() != idUsuario) {
             throw new IllegalArgumentException("Exercício com ID " + idExercicio + " não encontrado ou não pertence a você.");
         }
