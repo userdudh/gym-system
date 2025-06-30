@@ -18,7 +18,5 @@ public class ExportacaoServiceTest {
         ExportacaoService service = new ExportacaoService();
         service.exportarParaCSV(lista, "indicadores_test.csv");
 
-        // Aqui você poderia adicionar assertivas para verificar se o arquivo foi criado
-        // ou se o conteúdo bate com o esperado (ex.: usando Files.readAllLines).
     }
 }
