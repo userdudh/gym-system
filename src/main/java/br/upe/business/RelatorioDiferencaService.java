@@ -1,3 +1,7 @@
+package br.upe.business;
+
+import br.upe.data.beans.Indicadores;
+
 public void exportarRelatorioDiferencaCSV(RelatorioDiferencaIndicadores relatorio, String caminhoArquivo) {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo))) {
         // Cabeçalho com o período e os nomes das colunas das diferenças
