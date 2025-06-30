@@ -55,6 +55,11 @@ public class ExercicioService implements IExercicioService {
     }
 
     @Override
+    public Optional<Exercicio> buscarExercicioPorIdGlobal(int idExercicio) {
+        return exercicioRepository.buscarPorId(idExercicio);
+    }
+
+    @Override
     public boolean deletarExercicioPorNome(int idUsuario, String nomeExercicio) {
         if (nomeExercicio == null || nomeExercicio.trim().isEmpty()) {
             throw new IllegalArgumentException("Nome do exercício para deletar não pode ser vazio.");

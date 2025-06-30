@@ -1,15 +1,16 @@
 package br.upe;
 
-import ui.MenuExercicios;
+import br.upe.ui.MenuPrincipal;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        int idUsuarioLogado = 1;
-        System.out.println("--- DEBUG: Usuário ID " + idUsuarioLogado + " LOGADO para testes. ---");
+        Scanner scGlobal = new Scanner(System.in);
 
-        MenuExercicios menuExercicios = new MenuExercicios(idUsuarioLogado);
-        menuExercicios.exibirMenu();
+        MenuPrincipal menuPrincipal = new MenuPrincipal(scGlobal);
+        menuPrincipal.exibirMenuInicial();
 
-        System.out.println("SysFit encerrado. Até mais!");
+        scGlobal.close();
+        System.out.println("Programa encerrado.");
     }
 }

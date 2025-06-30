@@ -19,8 +19,8 @@ public class VisualizadorExercicio {
         try {
             gifIcon = new ImageIcon(Objects.requireNonNull(VisualizadorExercicio.class.getResource("/" + gifPath)));
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao carregar GIF: " + gifPath + "\n" + e.getMessage());
-            return;
+            JOptionPane.showMessageDialog(null, "Erro ao carregar GIF: " + gifPath + "\n" + e.getMessage(), "Erro de Imagem", JOptionPane.ERROR_MESSAGE);
+            gifIcon = new ImageIcon(new byte[0]);
         }
 
         JLabel gifLabel = new JLabel(gifIcon);

@@ -1,8 +1,7 @@
-package ui;
+package br.upe.ui;
 
 import br.upe.business.ExercicioService;
 import br.upe.data.beans.Exercicio;
-import br.upe.ui.VisualizadorExercicio;
 import br.upe.business.IExercicioService;
 
 import java.util.List;
@@ -16,9 +15,9 @@ public class MenuExercicios {
     private int idUsuarioLogado;
 
     public MenuExercicios(int idUsuarioLogado) {
-        this.exercicioService = new ExercicioService();
-        this.sc = new Scanner(System.in);
+        this.sc = sc;
         this.idUsuarioLogado = idUsuarioLogado;
+        this.exercicioService = new ExercicioService();
     }
 
     public void exibirMenu() {

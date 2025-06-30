@@ -10,10 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class ExercicioRepositoryImpl implements IExercicioRepository {
 
-    private static final String ARQUIVO_CSV = "resources/data/exercicios.csv";
+    private static final String ARQUIVO_CSV = "src/main/resources/data/exercicios.csv";
     private List<Exercicio> exercicios;
     private AtomicInteger proximoId;
 
@@ -25,7 +26,7 @@ public class ExercicioRepositoryImpl implements IExercicioRepository {
 
     private void carregarDoCsv() {
         try {
-            Files.createDirectories(Paths.get("resources/data"));
+            Files.createDirectories(Paths.get("src/main/resources/data"));
         } catch (IOException e) {
             System.err.println("Erro ao criar diretório para CSV: " + e.getMessage());
             return;
@@ -33,15 +34,12 @@ public class ExercicioRepositoryImpl implements IExercicioRepository {
 
         File file = new File(ARQUIVO_CSV);
         if (!file.exists()) {
-            System.out.println("Arquivo CSV não encontrado. Criando exercícios iniciais...");
-
-            int idUsuario = 1;
-
-            exercicios.add(new Exercicio(proximoId.getAndIncrement(), idUsuario, "Agachamento Livre", "Exercício para pernas e glúteos, feito com barra sobre os ombros e descida controlada.", "resources/gif/agachamento_livre.gif"));
-            exercicios.add(new Exercicio(proximoId.getAndIncrement(), idUsuario, "Supino Reto com Barra", "Fortalece peitoral, tríceps e ombros. Realizado deitado, empurrando a barra para cima.", "resources/gif/supino_reto_barra.gif"));
-            exercicios.add(new Exercicio(proximoId.getAndIncrement(), idUsuario, "Remada Curvada", "Trabalha costas e bíceps. Feito com barra ou halteres, tronco inclinado para frente.", "resources/gif/remada_curvada.gif"));
-
-            escreverParaCsv();
+            System.out.println("Arquivo CSV não encontrado. Será criado vazio no primeiro salvamento.");
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                System.err.println("Erro ao criar o arquivo CSV vazio: " + e.getMessage());
+            }
             return;
         }
 

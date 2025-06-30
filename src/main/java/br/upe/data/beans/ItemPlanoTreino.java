@@ -1,27 +1,42 @@
 package br.upe.data.beans;
 
-import br.upe.data.beans.Exercicio;
-
 public class ItemPlanoTreino {
-    private Exercicio exercicio;
+    private int idExercicio;
+    private int cargaKg;
     private int repeticoes;
-    private double carga;
 
-    public ItemPlanoTreino(Exercicio exercicio, int repeticoes, double carga) {
-        this.exercicio = exercicio;
+    public ItemPlanoTreino(int idExercicio, int cargaKg, int repeticoes) {
+        this.idExercicio = idExercicio;
+        this.cargaKg = cargaKg;
         this.repeticoes = repeticoes;
-        this.carga = carga;
     }
 
-    public Exercicio getExercicio() {
-        return exercicio;
+    public int getIdExercicio() {
+        return idExercicio;
+    }
+
+    public void setIdExercicio(int idExercicio) {
+        this.idExercicio = idExercicio;
+    }
+
+    public int getCargaKg() {
+        return cargaKg;
+    }
+
+    public void setCargaKg(int cargaKg) {
+        this.cargaKg = cargaKg;
     }
 
     public int getRepeticoes() {
         return repeticoes;
     }
 
-    public double getCarga() {
-        return carga;
+    public void setRepeticoes(int repeticoes) {
+        this.repeticoes = repeticoes;
+    }
+
+    @Override
+    public String toString() {
+        return "ID Exercício: " + idExercicio + ", Carga: " + cargaKg + "kg, Repetições: " + repeticoes;
     }
 }
