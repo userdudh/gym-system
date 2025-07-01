@@ -80,7 +80,7 @@ public class MenuPrincipal {
             System.out.println("2. Meus Indicadores");
             System.out.println("3. Gerenciar Planos de Treino");
             System.out.println("4. Gerenciar Exercícios");
-            System.out.println("5. Exportar Relatórios (Funcionalidade futura)");
+            System.out.println("5. Exportar Relatórios");
             System.out.println("0. Sair da Conta");
             System.out.print("\nEscolha uma opção: ");
 
@@ -107,8 +107,9 @@ public class MenuPrincipal {
                     MenuExercicios menuExercicios = new MenuExercicios(sc, usuarioLogado.getId());
                     menuExercicios.exibirMenu();
                     break;
-                case 5:
-                    System.out.println("Funcionalidade de exportar relatórios em desenvolvimento.");
+               case 5:
+                    MenuRelatorios menuRelatorios = new MenuRelatorios(sc, usuarioLogado.getId());
+                    menuRelatorios.exibirMenu();
                     break;
                 case 0:
                     System.out.println("Deslogando...");
