@@ -129,4 +129,30 @@ public class IndicadorBiomedicoService implements IIndicadorBiomedicoService {
     public List<IndicadorBiomedico> listarTodosDoUsuario(int idUsuario) {
         return indicadorRepository.listarPorUsuario(idUsuario);
     }
+
+    public void exportarRelatorioPorDataParaCsv(int idUsuario, LocalDate dataInicio, LocalDate dataFim, String caminhoArquivo) {
+    List<IndicadorBiomedico> relatorio = gerarRelatorioPorData(idUsuario, dataInicio, dataFim);
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(caminhoArquivo))) {
+        writer.write("Data;Peso (Kg);Altura (cm);Gordura (%);Massa Magra (%);IMC");
+        writer.newLine();
+
+        for (IndicadorBiomedico i : relatorio) {
+            writer.write(
+                i.getData() + ";" +
+                i.getPesoKg() + ";" +
+                i.getAlturaCm() + ";" +
+                i.getPercentualGordura() + ";" +
+                i.getPercentualMassaMagra() + ";" +
+                String.format("%.2f", i.getImc())
+            );
+            writer.newLine();
+        }
+
+        System.out.println("Relatório exportado com sucesso para: " + caminhoArquivo);
+    } catch (IOException e) {
+        System.err.println("Erro ao exportar relatório: " + e.getMessage());
+    }
+}
+
 }
