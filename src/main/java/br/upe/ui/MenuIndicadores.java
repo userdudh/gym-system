@@ -30,8 +30,6 @@ public class MenuIndicadores {
             System.out.println("\n===== MEUS INDICADORES BIOMÉDICOS ====");
             System.out.println("1. Cadastrar Novo Indicador");
             System.out.println("2. Ver Meus Indicadores");
-            System.out.println("3. Ver Relatório por Data");
-            System.out.println("4. Ver Relatório de Diferença");
             System.out.println("0. Voltar");
             System.out.print("\nEscolha uma opção: ");
 
@@ -47,12 +45,6 @@ public class MenuIndicadores {
                     break;
                 case 2:
                     listarMeusIndicadores();
-                    break;
-                case 3:
-                    verRelatorioPorData();
-                    break;
-                case 4:
-                    verRelatorioDiferenca();
                     break;
                 case 0:
                     System.out.println("Voltando ao Menu Principal...");
