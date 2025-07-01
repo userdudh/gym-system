@@ -64,6 +64,9 @@ public class RelatorioDiferencaIndicadores {
     }
 
 public void exportarParaCsv(String caminhoArquivo) throws IOException {
+    if (indicadorInicial.isEmpty() || indicadorFinal.isEmpty()) {
+        throw new IllegalStateException("Indicadores inicial ou final não estão presentes para exportar.");
+    }
     try (FileWriter writer = new FileWriter(caminhoArquivo)) {
         writer.append("Indicador,Inicial,Final,Diferença\n");
         writer.append(String.format("Peso (kg),%.1f,%.1f,%+.1f\n",
